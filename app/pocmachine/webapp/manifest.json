@@ -1,0 +1,162 @@
+{
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "pocmachine",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/service/machine/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "offline": false,
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "ui5template.fiorielements.v4.lrop",
+            "version": "1.0.0"
+        }
+    },  
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.122.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "groupsList",
+                    "target": "groupsList"
+                },
+                {
+                    "pattern": "groups({key}):?query:",
+                    "name": "groupsObjectPage",
+                    "target": "groupsObjectPage"
+                },
+                    {
+                        "pattern": "groups({key})/versions({key2}):?query:",
+                        "name": "GroupVersionObjectPage",
+                        "target": "GroupVersionObjectPage"
+                    }
+            ],
+            "targets": {
+                "groupsList": {
+                    "type": "Component",
+                    "id": "groupsList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "groups",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "groups": {
+                                    "detail": {
+                                        "route": "groupsObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "groupsObjectPage": {
+                    "type": "Component",
+                    "id": "groupsObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "groups",
+                                "navigation": {
+                                    "versions": {
+                                        "detail": {
+                                            "route": "GroupVersionObjectPage"
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                },
+                    "GroupVersionObjectPage": {
+                        "type": "Component",
+                        "id": "GroupVersionObjectPage",
+                        "name": "sap.fe.templates.ObjectPage",
+                        "options": {
+                            "settings": {
+                                "editableHeaderContent": false,
+                                "entitySet": "GroupVersion"
+                            }
+                        }
+                    }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.platform.abap": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.platform.hcp": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.fiori": {
+        "_version": "1.1.0",
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

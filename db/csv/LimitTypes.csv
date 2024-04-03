@@ -1,0 +1,4 @@
+limitType;description;
+P0_LT_DO_SHTLEN;P0: Sheet Length (Outbound);
+P0_LT_DO_SHTWID;P0: Sheet Width (Outbound);
+PC_LT_DP_CORRTRIM;PC: Corrugation Trim;
